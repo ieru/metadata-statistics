@@ -8,7 +8,19 @@ public interface ResourceSample {
      * @return the metadata schema of the resources in this sample
      */
     public MetadataSchema getSchema();
+    
+    /**
+     * Gets the name of the sample
+     * @return the name of the resource sample 
+     */
+    public String getName();
 
+    /**
+     * Sets the name of the sample
+     * @param name the name of the resource sample
+     */
+    public void setName(String name);
+    
     /**
      * Counts the number of resources in this sample which has certain metadata
      * field.
