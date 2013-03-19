@@ -21,5 +21,17 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>ie.cc.uah.es</groupId>
+      <artifactId>ont-space</artifactId>
+      <version>1.0</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 </project>

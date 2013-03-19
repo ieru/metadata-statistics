@@ -7,8 +7,13 @@ public class App {
 
     public static void main(String[] args) {
         //creamos un esquema y un parser de DC
-        MetadataSchema dcSchema = new MetadataSchema(); // debería ser new DCMetadataSchema()
-        MetadataParser parser = new MetadataParser(); // debería ser new DCXMLMetadataParser()
+        MetadataSchema dcSchema = new  MetadataSchema() {}; // debería ser new DCMetadataSchema()
+        MetadataParser parser = new MetadataParser() {
+
+            public Resource parse(Object obj) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        }; // debería ser new DCXMLMetadataParser()
 
         //configuramos un nuevo ResourceSource: le damos la ruta con los recursos y el parser para parsearlos.
         FSResourceSource source = new FSResourceSource("/home/abel/voa3r/xmls/", parser);
