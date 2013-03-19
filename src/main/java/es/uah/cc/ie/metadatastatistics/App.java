@@ -16,10 +16,10 @@ public class App {
         }; // debería ser new DCXMLMetadataParser()
 
         //configuramos un nuevo ResourceSource: le damos la ruta con los recursos y el parser para parsearlos.
-        FSResourceSource source = new FSResourceSource("/home/abel/voa3r/xmls/", parser);
+        ResourceSource source = new FSResourceSource("/home/abel/voa3r/xmls/", parser);
 
         //Definimos una nueva muestra: le damos un nombre, el esquema de metadatos y la fuente de los recursos.
-        ResourceSampleImpl sample = new ResourceSampleImpl("Example Repository", dcSchema, source);
+        ResourceSample sample = new ResourceSampleImpl("Example Repository", dcSchema, source);
 
         System.out.println("La muestra " + sample.getName() + " tiene " + sample.size() + " recursos.");
         System.out.println(sample.countValid() + " recursos son válidos.");
