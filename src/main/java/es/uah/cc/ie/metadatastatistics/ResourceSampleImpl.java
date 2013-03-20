@@ -1,6 +1,9 @@
 package es.uah.cc.ie.metadatastatistics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ResourceSampleImpl implements ResourceSample {
 
@@ -9,11 +12,13 @@ public class ResourceSampleImpl implements ResourceSample {
     private ResourceSource source;
     private HashMap<String, Integer> haveFieldCounter = new HashMap<String, Integer>();
     private int validCounter = 0;
+    private int size = 0;
 
     public ResourceSampleImpl(String name, MetadataSchema ms, ResourceSource rs) {
         this.name = name;
         this.schema = ms;
         this.source = rs;
+        this.processResourceSource();
     }
 
     public String getName() {
@@ -22,6 +27,10 @@ public class ResourceSampleImpl implements ResourceSample {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ResourceSource getSource() {
+        return source;
     }
 
     public final int countHaveField(String field) throws NoSuchFieldException {
@@ -40,7 +49,11 @@ public class ResourceSampleImpl implements ResourceSample {
      * @return the number of resources which has the specified metadata field.
      */
     protected int _countHaveField(String field) {
-        return this.haveFieldCounter.get(field);
+        if (this.haveFieldCounter.containsKey(field)) {
+            return this.haveFieldCounter.get(field);
+        } else {
+            return 0;
+        }
     }
 
     public MetadataSchema getSchema() {
@@ -50,8 +63,36 @@ public class ResourceSampleImpl implements ResourceSample {
     public int countValid() {
         return this.validCounter;
     }
-
+    
+    public int incValid() {
+        return ++ this.validCounter;
+    }
+    
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.size;
+    }
+    
+    protected int incSize() {
+        return ++ this.size;
+    }
+
+    private void processResourceSource() {
+        ResourceSource src = this.getSource();
+        ArrayList<String> fields = this.getSchema().getFields();
+        for (Resource res: src) {
+            for (String field : fields) {
+                int count = 0;
+                try {
+                    count = this.countHaveField(field);
+                } catch (NoSuchFieldException ex) {
+                    Logger.getLogger(ResourceSampleImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.haveFieldCounter.put(field, count);
+            }
+            if (res.isValid()) {
+                this.incValid();
+            }
+            this.incSize();
+        }
     }
 }

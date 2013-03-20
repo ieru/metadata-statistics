@@ -19,4 +19,8 @@ public class AbstractResourceSource implements ResourceSource {
     protected List getSource() {
         return this.source;
     }
+    
+    protected MetadataParser getParser() {
+        return this.parser;
+    }
 }
