@@ -27,11 +27,5 @@
       <version>1.0</version>
       <type>jar</type>
     </dependency>
-    <dependency>
-      <groupId>ie.cc.uah.es</groupId>
-      <artifactId>ont-space</artifactId>
-      <version>1.0</version>
-      <type>jar</type>
-    </dependency>
   </dependencies>
 </project>

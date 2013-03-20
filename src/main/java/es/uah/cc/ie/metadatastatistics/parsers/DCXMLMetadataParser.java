@@ -17,8 +17,10 @@ public class DCXMLMetadataParser  implements MetadataParser{
         File obj2 = (File) obj;
         DublinCore dc;
         dc = new DublinCore(obj2);
+        dc.parseDCXML();
         
-        dc.parseDCXMLStats(obj2.getName());
+        //CREAR EL RESPURCE CON GET SET
+        //dc.parseDCXMLStats(obj2.getName());
         throw new UnsupportedOperationException("Not supported yet.");
 
 
