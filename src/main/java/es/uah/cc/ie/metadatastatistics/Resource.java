@@ -6,6 +6,7 @@ public class Resource {
 
     private HashMap<String, Object> metadata = new HashMap<String, Object>();
     private MetadataSchema schema;
+    private boolean valid = false;
 
     public Resource(MetadataSchema ms) {
         this.schema = ms;
@@ -33,5 +34,13 @@ public class Resource {
         if (!this.getSchema().getFields().contains(fieldName)) {
             throw new NoSuchFieldException("Invalid field");
         }
+    }
+
+    public boolean isValid() {
+        return this.valid;
+    }
+    
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }
