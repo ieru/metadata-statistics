@@ -84,6 +84,9 @@ public class ResourceSampleImpl implements ResourceSample {
                 int count = 0;
                 try {
                     count = this.countHaveField(field);
+                    if (res.get(field) != null) {
+                        count ++;
+                    }
                 } catch (NoSuchFieldException ex) {
                     Logger.getLogger(ResourceSampleImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
