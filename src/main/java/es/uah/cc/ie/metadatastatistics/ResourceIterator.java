@@ -16,7 +16,7 @@ class ResourceIterator implements Iterator<Resource> {
     }
 
     public boolean hasNext() {
-        return this.position < (this.source.size());
+        return this.position <= (this.source.size() - 1);
     }
 
     public Resource next() {
