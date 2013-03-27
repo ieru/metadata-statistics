@@ -25,9 +25,11 @@ public class FSResourceSource extends AbstractResourceSource {
         FileFilter xmlFilter = new FileFilter() {
             @Override
             public boolean accept(File file) {
+                 
                 return (file.isFile() && file.getName().endsWith(".xml") && !file.getName().equals("deletedRecords.xml"));
             }
         };
+        
         File dir = new File(this.getPath());
         List<File> listXmlFiles = new ArrayList();
         if (dir.isDirectory()) {
@@ -37,6 +39,7 @@ public class FSResourceSource extends AbstractResourceSource {
             File[] files = dir.listFiles(xmlFilter);
             listXmlFiles.addAll(Arrays.asList(files));
         }
+      
         return new ResourceIterator(listXmlFiles, this.getParser());
     }
 }

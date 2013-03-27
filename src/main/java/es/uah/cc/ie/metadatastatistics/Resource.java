@@ -6,7 +6,7 @@ public class Resource {
 
     private HashMap<String, Object> metadata = new HashMap<String, Object>();
     private MetadataSchema schema;
-    private boolean valid = false;
+    private boolean valid = true;
 
     public Resource(MetadataSchema ms) {
         this.schema = ms;

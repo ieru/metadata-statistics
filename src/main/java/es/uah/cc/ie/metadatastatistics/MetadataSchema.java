@@ -11,6 +11,10 @@ public abstract class MetadataSchema {
 
     private ArrayList<String> fields;
 
+    public MetadataSchema() {
+       this.fields = new ArrayList<String>();
+    }
+
     public final ArrayList<String> getFields() {
         return this.fields;
     }
@@ -30,6 +34,7 @@ public abstract class MetadataSchema {
      * @param fields the collection of fields to be added.
      */
     protected final void declareFields(Collection<String> fields) {
+        //System.out.println(fields);
         this.fields.addAll(fields);
     }
 }

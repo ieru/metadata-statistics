@@ -5,23 +5,38 @@
 package es.uah.cc.ie.metadatastatistics.parsers;
 import es.uah.cc.ie.metadatastatistics.*;
 import es.uah.cc.ie.metadatastatistics.conversor.dc.*;
+import es.uah.cc.ie.metadatastatistics.schemas.DCMetadataSchema;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author flag
  */
 public class DCXMLMetadataParser  implements MetadataParser{
+    
 
-    public Resource parse(Object obj) {
-        File obj2 = (File) obj;
-        DublinCore dc;
-        dc = new DublinCore(obj2);
-        dc.parseDCXML();
         
-        //CREAR EL RESPURCE CON GET SET
-        //dc.parseDCXMLStats(obj2.getName());
-        throw new UnsupportedOperationException("Not supported yet.");
+   
+    public Resource parse(Object obj) {
+      
+        Resource res= new Resource(new DCMetadataSchema());
+        DublinCore dc;
+        dc = new DublinCore((File)obj);
+        dc.parseDCXML();
+        try { 
+            
+            res.set("title", dc.getTitles());
+            res.set("contributor", dc.getContributors());
+            res.set("coverage", dc.getCoverages());
+            //System.out.println((File) obj);
+        } catch (NoSuchFieldException ex) {
+           
+            Logger.getLogger(DCXMLMetadataParser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return res;
 
 
     }

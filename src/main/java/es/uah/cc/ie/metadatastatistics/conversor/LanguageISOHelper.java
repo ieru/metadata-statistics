@@ -17,7 +17,7 @@ public class LanguageISOHelper {
     }
 
      public String getISO_639_1_fromText(String lang) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return("en");
     }
     
 }

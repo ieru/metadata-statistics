@@ -14,24 +14,30 @@ import java.util.Collection;
  */
 public class DCMetadataSchema extends MetadataSchema {
 
-    public DCMetadataSchema() {
+    public DCMetadataSchema()  {
+        super();
+        
         Collection<String> dcCollection = new ArrayList<String>();
 
-
-        dcCollection.add("Title");
-        dcCollection.add("Creator");
-        dcCollection.add("Subject");
-        dcCollection.add("Description");
-        dcCollection.add("Publisher");
-        dcCollection.add("Contributor");
-        dcCollection.add("Date");
-        dcCollection.add("Type");
-        dcCollection.add("Format");
-        dcCollection.add("Identifier");
-        dcCollection.add("Source");
-        dcCollection.add("Language");
+       
+        dcCollection.add("title");
+        dcCollection.add("creator");
+        dcCollection.add("subject");
+        dcCollection.add("description");
+        dcCollection.add("publisher");
+        dcCollection.add("contributor");
+        dcCollection.add("date");
+        dcCollection.add("type");
+        dcCollection.add("format");
+        dcCollection.add("identifier");
+        dcCollection.add("source");
+        dcCollection.add("language");
         dcCollection.add("elation");
-        dcCollection.add("Coverage");
-        dcCollection.add("Rights");
+        dcCollection.add("coverage");
+        dcCollection.add("rights");
+        // System.out.println("ENTROOOOOOOOOOO");
+        declareFields(dcCollection);
     }
+   
+   
 }
