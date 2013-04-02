@@ -53,7 +53,7 @@ public class Voa3rAp4MetadataSchema extends MetadataSchema {
         voa3tap4Collection.add("isTranslationOf");
         voa3tap4Collection.add("hasMetametadata");
         voa3tap4Collection.add("hasResearch");
-        voa3tap4Collection.add("agrovocTerms");
+      
 
         this.declareFields(voa3tap4Collection);
         //List<String> titleNames = new ArrayList<String>();

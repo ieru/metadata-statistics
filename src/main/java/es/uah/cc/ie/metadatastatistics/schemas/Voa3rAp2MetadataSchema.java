@@ -45,7 +45,7 @@ public class Voa3rAp2MetadataSchema extends MetadataSchema {
         voa3tap2Collection.add("isReferencedBy");
         voa3tap2Collection.add("hasPart");
         voa3tap2Collection.add("isPartOf");
-        voa3tap2Collection.add("agrovocTerms");   
+        //voa3tap2Collection.add("agrovocTerms");   
         
         
         this.declareFields(voa3tap2Collection);

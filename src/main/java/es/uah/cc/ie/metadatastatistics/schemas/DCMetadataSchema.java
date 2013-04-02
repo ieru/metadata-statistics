@@ -32,10 +32,9 @@ public class DCMetadataSchema extends MetadataSchema {
         dcCollection.add("identifier");
         dcCollection.add("source");
         dcCollection.add("language");
-        dcCollection.add("elation");
+        dcCollection.add("relation");
         dcCollection.add("coverage");
         dcCollection.add("rights");
-        // System.out.println("ENTROOOOOOOOOOO");
         declareFields(dcCollection);
     }
    
