@@ -39,6 +39,8 @@ public class ResourceSampleImpl implements ResourceSample {
         }
         return this._countHaveField(field);
     }
+    
+
 
     /**
      * Counts the number of resources in this ResourceSample which has certain

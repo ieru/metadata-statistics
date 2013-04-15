@@ -24,7 +24,7 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
         Voa3rAP4 vap4;
         vap4 = new Voa3rAP4(obj2);
         vap4.parseVoa3rAP4XML();
-         try {
+        try {
 
             if (!vap4.getTitles().isEmpty()) {
                 res.set("title", vap4.getTitles());
@@ -38,8 +38,8 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
             if (!vap4.getContributors().isEmpty()) {
                 res.set("contributor", vap4.getContributors());
             }
-            if (!vap4.getContributors().isEmpty()) {
-                res.set("publisher", vap4.getContributors());
+            if (!vap4.getPublishers().isEmpty()) {
+                res.set("publisher", vap4.getPublishers());
             }
             if (!vap4.getDates().isEmpty()) {
                 res.set("date", vap4.getDates());
@@ -53,15 +53,12 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
             if (!vap4.getRelations().isEmpty()) {
                 res.set("relation", vap4.getRelations());
             }
-
             if (!vap4.getRights().isEmpty()) {
                 res.set("rights", vap4.getRights());
             }
-
-            if (!vap4.getSources().isEmpty()) {
+            if (!vap4.getFormats().isEmpty()) {
                 res.set("format", vap4.getFormats());
             }
-
             if (!vap4.getIsShownBy().isEmpty()) {
                 res.set("isShownBy", vap4.getIsShownBy());
             }
@@ -92,6 +89,9 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
             if (!vap4.getReviewStatus().isEmpty()) {
                 res.set("reviewStatus", vap4.getReviewStatus());
             }
+            if (!vap4.getRelations().isEmpty()) {
+                res.set("relation", vap4.getRelations());
+            }
             if (!vap4.getPublicationStatus().isEmpty()) {
                 res.set("publicationStatus", vap4.getPublicationStatus());
             }
@@ -109,6 +109,24 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
             }
             if (!vap4.getIsPartOf().isEmpty()) {
                 res.set("isPartOf", vap4.getIsPartOf());
+            }
+            if (!vap4.getHasVersion().isEmpty()) {
+                res.set("hasVersion", vap4.getHasVersion());
+            }
+            if (!vap4.getIsVersionOf().isEmpty()) {
+                res.set("isVersionOf", vap4.getIsVersionOf());
+            }
+            if (!vap4.getHasTranslation().isEmpty()) {
+                res.set("hasTranslation", vap4.getHasTranslation());
+            }
+            if (!vap4.getIsTranslationOf().isEmpty()) {
+                res.set("isTranslationOf", vap4.getIsTranslationOf());
+            }
+            if (!vap4.getHasMetametadata().isEmpty()) {
+                res.set("hasMetametadata", vap4.getHasMetametadata());
+            }
+            if (!vap4.getHasResearch().isEmpty()) {
+                res.set("hasResearch", vap4.getHasResearch());
             }
             //System.out.println();
             //System.out.println((File) obj);

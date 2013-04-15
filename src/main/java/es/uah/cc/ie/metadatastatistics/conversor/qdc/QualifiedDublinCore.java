@@ -223,7 +223,7 @@ public class QualifiedDublinCore {
 
 
             String childrenName = child.getName();
-            System.out.println(child.getName());
+            //System.out.println(child.getName());
             if (identifierNames.contains(childrenName)) {
                 Identifier2Identifier identifier2Identifier = new Identifier2Identifier(child, qdc);
             }
