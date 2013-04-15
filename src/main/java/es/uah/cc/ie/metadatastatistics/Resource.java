@@ -2,9 +2,9 @@ package es.uah.cc.ie.metadatastatistics;
 
 import java.util.HashMap;
 
-public class Resource {
+public class Resource extends HashMap{
 
-    private HashMap<String, Object> metadata = new HashMap<String, Object>();
+//    private HashMap<String, Object> metadata = new HashMap<String, Object>();
     private MetadataSchema schema;
     private boolean valid = true;
 
@@ -22,12 +22,12 @@ public class Resource {
 
     public Object get(String fieldName) throws NoSuchFieldException {
         assertInSchema(fieldName);
-        return this.metadata.get(fieldName);
+        return super.get(fieldName);
     }
 
     public void set(String fieldName, Object value) throws NoSuchFieldException {
         assertInSchema(fieldName);
-        this.metadata.put(fieldName, value);
+        super.put(fieldName, value);
     }
 
     private void assertInSchema(String fieldName) throws NoSuchFieldException {

@@ -18,7 +18,7 @@ public class ResourceSampleImpl implements ResourceSample {
         this.name = name;
         this.schema = ms;
         this.source = rs;
-        this.processResourceSource();
+        this.processMetadataCompleteness();
     }
 
     public String getName() {
@@ -76,7 +76,7 @@ public class ResourceSampleImpl implements ResourceSample {
         return ++ this.size;
     }
 
-    private void processResourceSource() {
+    private void processMetadataCompleteness() {
         ResourceSource src = this.getSource();
         ArrayList<String> fields = this.getSchema().getFields();
         for (Resource res: src) {
