@@ -1,6 +1,5 @@
 package es.uah.cc.ie.metadatastatistics;
 
-import es.uah.cc.ie.metadatastatistics.conversor.dc.*;
 import es.uah.cc.ie.metadatastatistics.parsers.AgrisAPMetadataParser;
 import es.uah.cc.ie.metadatastatistics.parsers.DCXMLMetadataParser;
 import es.uah.cc.ie.metadatastatistics.parsers.Voa3rAP2XMLMetadataParser;
@@ -9,13 +8,8 @@ import es.uah.cc.ie.metadatastatistics.schemas.AgrisAPMetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.DCMetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp2MetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp4MetadataSchema;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
 
 public class App {
 
@@ -41,7 +35,6 @@ public class App {
                         case voa3rAP2:
                             defaultSchema = new Voa3rAp2MetadataSchema();
                             parser = new Voa3rAP2XMLMetadataParser();
-
 
                             break;
                         case voa3rAP4:
@@ -124,12 +117,12 @@ public class App {
         System.out.println("");
         System.out.println("java -jar metadata-statistics.jar <<XML_INPUT_PATH>>, <<METADATA SCHEMA>>");
         System.out.println("");
-         System.out.println("METADATA CHEMA");
-         System.out.println("");
-         System.out.println("voa3rAP2 | voa3rAP4 | dublinCore | Agris");
-         System.out.println("");
-         System.out.println("");
-          System.out.println("");
+        System.out.println("METADATA CHEMA");
+        System.out.println("");
+        System.out.println("voa3rAP2 | voa3rAP4 | dublinCore | Agris");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         System.out.println("PARAMS");
         System.out.println("XML INPUT PATH = the xml repository folder");
         System.out.println("METADATA SCHEMA = the xml metadata Schema: voa3rAP2 | voa3rAP4 | dublinCore | Agris");
@@ -149,6 +142,5 @@ public class App {
                 return null;
             }
         }
-
     }
 }
