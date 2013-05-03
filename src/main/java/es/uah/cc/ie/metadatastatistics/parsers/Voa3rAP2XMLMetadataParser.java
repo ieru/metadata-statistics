@@ -7,13 +7,12 @@ package es.uah.cc.ie.metadatastatistics.parsers;
 import es.uah.cc.ie.metadatastatistics.*;
 import es.uah.cc.ie.metadatastatistics.conversor.Voa3rAP2.*;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp2MetadataSchema;
-
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Voa3rAp2 parser
  * @author flag
  */
 public class Voa3rAP2XMLMetadataParser implements MetadataParser {

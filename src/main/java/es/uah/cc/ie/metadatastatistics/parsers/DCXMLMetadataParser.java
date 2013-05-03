@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *DC parser
  * @author flag
  */
 public class DCXMLMetadataParser implements MetadataParser {

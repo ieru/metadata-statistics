@@ -460,20 +460,22 @@ public class Voa3rAP4 extends Voa3rAP2 {
       this.addAgrovocTerm(subject);
 //      addSubject("URI", subject);
     } else {
-        boolean isAgrovocTerm = false;
         LangValuePair lv = getLangAndValue(statement);
-        String vesURI = statement.getAttributeValue("vesURI", dcdsNS);
-        if (vesURI != null && vesURI.equalsIgnoreCase("http://aims.fao.org/aos/agrovoc")) {
-            AgrovocCacheHelper ah = AgrovocCacheHelper.getInstance();
-            String agrovocURI = ah.getAgrovocId(lv.getValue());
-            if (agrovocURI != null) {
-                addAgrovocTerm(agrovocURI);
-                isAgrovocTerm = true;
-            }
-        }
-        if (!isAgrovocTerm) {
-            addSubject(lv.getLang(), lv.getValue());
-        }
+        addSubject(lv.getLang(), lv.getValue());
+//        boolean isAgrovocTerm = false;
+//        LangValuePair lv = getLangAndValue(statement);
+//        String vesURI = statement.getAttributeValue("vesURI", dcdsNS);
+//        if (vesURI != null && vesURI.equalsIgnoreCase("http://aims.fao.org/aos/agrovoc")) {
+//            AgrovocCacheHelper ah = AgrovocCacheHelper.getInstance();
+//            String agrovocURI = ah.getAgrovocId(lv.getValue());
+//            if (agrovocURI != null) {
+//                addAgrovocTerm(agrovocURI);
+//                isAgrovocTerm = true;
+//            }
+//        }
+//        if (!isAgrovocTerm) {
+//            addSubject(lv.getLang(), lv.getValue());
+//        }
     }
   }
 

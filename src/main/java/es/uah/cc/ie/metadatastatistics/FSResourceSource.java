@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @Attributes: String path: is the file system path where xml path is allocated.
+ * AbstractResourceSource extends, and obtains xml file resources in the file system.
+ * @author flag
+ */
 public class FSResourceSource extends AbstractResourceSource {
 
     private String path;
@@ -16,10 +21,18 @@ public class FSResourceSource extends AbstractResourceSource {
         this.path = path;
     }
 
+    /**
+     * Get the resource path
+     * @return 
+     */
     public String getPath() {
         return path;
     }
     
+    /**
+     * Create the iterator
+     * @return  Iterator<Resource> 
+     */
     @Override
     public Iterator<Resource> iterator() {
         FileFilter xmlFilter = new FileFilter() {

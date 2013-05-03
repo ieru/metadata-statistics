@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- *
+ * Voa3rAp2 Schema
  * @author flag
  */
 public class Voa3rAp2MetadataSchema extends MetadataSchema {

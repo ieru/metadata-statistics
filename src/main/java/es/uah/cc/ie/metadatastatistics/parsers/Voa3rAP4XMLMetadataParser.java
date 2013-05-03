@@ -6,14 +6,16 @@ package es.uah.cc.ie.metadatastatistics.parsers;
 
 import es.uah.cc.ie.metadatastatistics.MetadataParser;
 import es.uah.cc.ie.metadatastatistics.Resource;
+import es.uah.cc.ie.metadatastatistics.conversor.Voa3rAP4.Vap4Agent;
 import es.uah.cc.ie.metadatastatistics.conversor.Voa3rAP4.Voa3rAP4;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp4MetadataSchema;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Voa3r AP4 Parser
  * @author flag
  */
 public class Voa3rAP4XMLMetadataParser implements MetadataParser {
@@ -33,13 +35,71 @@ public class Voa3rAP4XMLMetadataParser implements MetadataParser {
                 res.set("alternative", vap4.getAlternative());
             }
             if (!vap4.getCreators().isEmpty()) {
-                res.set("creator", vap4.getCreators());
+                ArrayList creators = vap4.getCreators();
+                res.set("creator", creators);
+                for (Object creator : creators) {
+                    if (creator instanceof Vap4Agent) {
+                        Vap4Agent agent = (Vap4Agent) creator;
+                        String fullName = agent.getFullName();
+                        if (fullName != null && !fullName.isEmpty()) {
+                            res.set("creator_name", fullName);
+
+                            String type = agent.getType();
+                            if (type != null && type.equals("http://xmlns.com/foaf/0.1/Organization")) {
+                                res.set("creator_organization", fullName);
+                            }
+                        }
+                        String email = agent.getMbox();
+                        if (email != null && !email.isEmpty()) {
+                            res.set("creator_email", email);
+                        }
+                    }
+                }
             }
             if (!vap4.getContributors().isEmpty()) {
-                res.set("contributor", vap4.getContributors());
+               
+                ArrayList contributors = vap4.getCreators();
+                res.set("contributor", contributors);
+                for (Object contributor : contributors) {
+                    if (contributor instanceof Vap4Agent) {
+                        Vap4Agent agent = (Vap4Agent) contributor;
+                        String fullName = agent.getFullName();
+                        if (fullName != null && !fullName.isEmpty()) {
+                            res.set("contributor_name", fullName);
+
+                            String type = agent.getType();
+                            if (type != null && type.equals("http://xmlns.com/foaf/0.1/Organization")) {
+                                res.set("contributor_organization", fullName);
+                            }
+                        }
+                        String email = agent.getMbox();
+                        if (email != null && !email.isEmpty()) {
+                            res.set("contributor_email", email);
+                        }
+                    }
+                }
             }
             if (!vap4.getPublishers().isEmpty()) {
-                res.set("publisher", vap4.getPublishers());
+                  ArrayList publishers = vap4.getCreators();
+                res.set("publisher", publishers);
+                for (Object publisher : publishers) {
+                    if (publisher instanceof Vap4Agent) {
+                        Vap4Agent agent = (Vap4Agent) publisher;
+                        String fullName = agent.getFullName();
+                        if (fullName != null && !fullName.isEmpty()) {
+                            res.set("publisher_name", fullName);
+
+                            String type = agent.getType();
+                            if (type != null && type.equals("http://xmlns.com/foaf/0.1/Organization")) {
+                                res.set("publisher_organization", fullName);
+                            }
+                        }
+                        String email = agent.getMbox();
+                        if (email != null && !email.isEmpty()) {
+                            res.set("publisher_email", email);
+                        }
+                    }
+                }
             }
             if (!vap4.getDates().isEmpty()) {
                 res.set("date", vap4.getDates());

@@ -7,9 +7,9 @@ package es.uah.cc.ie.metadatastatistics.schemas;
 import es.uah.cc.ie.metadatastatistics.MetadataSchema;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
 /**
- *
+ * AgrisAP Schema
  * @author flag
  */
 public class AgrisAPMetadataSchema extends MetadataSchema {

@@ -30,9 +30,9 @@ public class Type2Type {
         //8-Type
         if (metadata.compareTo("type") == 0) {
             String value = child.getTextTrim();
-            if (value.length() > 2) {
+           // if (value.length() > 2) {
                 agris.setType(value);
-            }
+           // }
         }
 
     }

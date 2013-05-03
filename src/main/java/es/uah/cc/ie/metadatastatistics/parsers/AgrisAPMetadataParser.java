@@ -6,16 +6,15 @@ package es.uah.cc.ie.metadatastatistics.parsers;
 
 import es.uah.cc.ie.metadatastatistics.MetadataParser;
 import es.uah.cc.ie.metadatastatistics.Resource;
-
 import es.uah.cc.ie.metadatastatistics.conversor.agrisap.Agrisap;
 import es.uah.cc.ie.metadatastatistics.schemas.AgrisAPMetadataSchema;
-
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jdom.Element;
 
 /**
- *
+ *AgrisAp parser
  * @author flag
  */
 public class AgrisAPMetadataParser implements MetadataParser {
@@ -23,11 +22,9 @@ public class AgrisAPMetadataParser implements MetadataParser {
     public Resource parse(Object obj) {
 
         Resource res = new Resource(new AgrisAPMetadataSchema());
-        Agrisap ag;
-        ag = new Agrisap((File) obj);
+        Agrisap ag = new Agrisap(new File(""));
+        ag.parseAgrisapXML((Element)obj);
         try {
-
-
 
             if (!ag.getTitles().isEmpty()) {
                 res.set("title", ag.getTitles());
@@ -35,7 +32,6 @@ public class AgrisAPMetadataParser implements MetadataParser {
             if (!ag.getAlternative().isEmpty()) {
                 res.set("alternative", ag.getAlternative());
             }
-
             // List<String> creatorNames = new ArrayList<String>(, ag.
             if (!ag.getCreator().isEmpty()) {
                 res.set("creator", ag.getCreator());
@@ -49,7 +45,6 @@ public class AgrisAPMetadataParser implements MetadataParser {
             if (!ag.getCreatorConference().isEmpty()) {
                 res.set("creatorConference", ag.getCreatorConference());
             }
-
             // List<String> publisherNames = new ArrayList<String>(, ag.
             if (!ag.getPublisher().isEmpty()) {
                 res.set("publisher", ag.getPublisher());
@@ -60,7 +55,6 @@ public class AgrisAPMetadataParser implements MetadataParser {
             if (!ag.getPublisherPlace().isEmpty()) {
                 res.set("publisherPlace", ag.getPublisherPlace());
             }
-
             // List<String> dateNames = new ArrayList<String>(, ag.
             if (!ag.getDate().isEmpty()) {
                 res.set("date", ag.getDate());

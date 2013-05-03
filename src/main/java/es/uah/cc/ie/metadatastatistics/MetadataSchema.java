@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- *
+ * Abstract class that represents a metadata schema, each new metadata schema must extend this class.
  * @author link87
  */
 public abstract class MetadataSchema {
 
     private ArrayList<String> fields;
 
+    /**
+     * Constructor
+     * @author flag
+     */
     public MetadataSchema() {
        this.fields = new ArrayList<String>();
     }
 
+    /**
+     * Obtain fields
+     * @return ArrayList<String>
+     */
     public final ArrayList<String> getFields() {
         return this.fields;
     }

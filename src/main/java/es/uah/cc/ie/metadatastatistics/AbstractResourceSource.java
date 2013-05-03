@@ -3,8 +3,15 @@ package es.uah.cc.ie.metadatastatistics;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * @Attributes:
+ * parses the source resources.
+ * Abstract implementation of the above interface will inherit the two previous implementations
+ * @author flag
+ */
 public class AbstractResourceSource implements ResourceSource {
 
+    
     private MetadataParser parser;
     private List source;
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- *
+ * Voa3rAp4 Schema
  * @author flag
  */
 public class Voa3rAp4MetadataSchema extends MetadataSchema {
@@ -22,8 +22,20 @@ public class Voa3rAp4MetadataSchema extends MetadataSchema {
         voa3tap4Collection.add("title");
         voa3tap4Collection.add("alternative");
         voa3tap4Collection.add("creator");
+        voa3tap4Collection.add("creator_name");
+        voa3tap4Collection.add("creator_email");
+        voa3tap4Collection.add("creator_organization");
+        //voa3tap4Collection.add("creator_URI");
         voa3tap4Collection.add("contributor");
+         voa3tap4Collection.add("contributor_name");
+        voa3tap4Collection.add("contributor_email");
+        voa3tap4Collection.add("contributor_organization");
+        
+         //voa3tap4Collection.add("contributor_URI");
         voa3tap4Collection.add("publisher");
+         voa3tap4Collection.add("publisher_name");
+        voa3tap4Collection.add("publisher_email");
+        voa3tap4Collection.add("publisher_organization");
         voa3tap4Collection.add("date");
         voa3tap4Collection.add("identifier");
         voa3tap4Collection.add("language");

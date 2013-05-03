@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- *
+ * DC Schema
  * @author flag
  */
 public class DCMetadataSchema extends MetadataSchema {
