@@ -2,16 +2,9 @@ package es.uah.cc.ie.metadatastatistics;
 
 import java.util.HashMap;
 
-/**
- * A resource representation
- * @Attributes
- *       MetadataSchema schema: metadata schema from resource
- *      HashMap<String,Object> metadata: resource metadata, the key is a String with the name of the metadata, and the value is an Object with the metadata value.
- * @author flag
- */
-public class Resource {
+public class Resource extends HashMap{
 
-    private HashMap<String, Object> metadata = new HashMap<String, Object>();
+//    private HashMap<String, Object> metadata = new HashMap<String, Object>();
     private MetadataSchema schema;
     private boolean valid = true;
 
@@ -47,7 +40,7 @@ public class Resource {
      */
     public Object get(String fieldName) throws NoSuchFieldException {
         assertInSchema(fieldName);
-        return this.metadata.get(fieldName);
+        return super.get(fieldName);
     }
 
     /**
@@ -58,7 +51,7 @@ public class Resource {
      */
     public void set(String fieldName, Object value) throws NoSuchFieldException {
         assertInSchema(fieldName);
-        this.metadata.put(fieldName, value);
+        super.put(fieldName, value);
     }
 
     /**

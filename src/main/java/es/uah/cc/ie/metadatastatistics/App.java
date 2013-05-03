@@ -47,7 +47,6 @@ public class App {
                             defaultSchema = new Voa3rAp2MetadataSchema();
                             parser = new Voa3rAP2XMLMetadataParser();
 
-
                             break;
                         case voa3rAP4:
                             defaultSchema = new Voa3rAp4MetadataSchema();
