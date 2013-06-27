@@ -559,6 +559,9 @@ public class QualifiedDublinCore {
      * @return the _bibliographicCitation
      */
     public ArrayList<String> getBibliographicCitation() {
+        
+       
+       
         return _bibliographicCitation;
     }
 

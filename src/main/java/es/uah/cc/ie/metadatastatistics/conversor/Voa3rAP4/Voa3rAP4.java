@@ -56,6 +56,10 @@ public class Voa3rAP4 extends Voa3rAP2 {
         if (lang != null) {
             iso_lang = langISOHelper.getISO_639_1_fromText(lang);
         }
+        else
+        {
+            lang="null";
+        }
         if (iso_lang == null) {
             //I try to autodetec the language
             if (langDetector != null) {
@@ -65,7 +69,7 @@ public class Voa3rAP4 extends Voa3rAP2 {
             }
         }
         
-        return iso_lang;
+        return lang;
     }
     
   public static LangValuePair getLangAndValue(Element statement) {
@@ -494,7 +498,9 @@ public class Voa3rAP4 extends Voa3rAP2 {
   }
 
   private void parseBibliographicCitation(Element statement) {
+      statement.getAttributeValue("type");
     String bc = getLiteral(statement);
+    
     if (! bc.isEmpty()) {
       addBibliographicCitation(bc);
     }

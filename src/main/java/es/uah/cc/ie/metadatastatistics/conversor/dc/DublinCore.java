@@ -166,6 +166,7 @@ public class DublinCore {
      * @param root DOM element
      */
     public void translateNodes(Element root) {
+        
         List<Element> children = root.getChildren();
         Namespace xmlNS = Namespace.getNamespace("xml",
                 "http://www.w3.org/XML/1998/namespace");
@@ -179,8 +180,10 @@ public class DublinCore {
 
             if (childrenName.compareTo("identifier") == 0) {
                 this.addIdentifier(child.getTextTrim());
+               
             }
             if (childrenName.compareTo("title") == 0) {
+               
                 String titleValue = child.getTextTrim();
                 //I try to obtain the language from the attribute in the XML
                 String lang = child.getAttributeValue("lang", xmlNS);
@@ -188,6 +191,10 @@ public class DublinCore {
                 if (lang != null) {
                     iso_lang = new String();
                     iso_lang = _langISOHelper.getISO_639_1_fromText(lang);
+                }
+                  else
+                {
+                    lang="null";
                 }
                 if (iso_lang == null) {
                     //I try to autodetec the language
@@ -212,7 +219,7 @@ public class DublinCore {
                         _logger.log(Level.WARNING, message);
                     }
                 }
-                this.addTitle(iso_lang, titleValue);
+                this.addTitle(lang, titleValue);
             }
             if (childrenName.compareTo("language") == 0) {
                 //I try to obtain the language from the attribute in the XML
@@ -222,6 +229,7 @@ public class DublinCore {
                     iso_lang = new String();
                     iso_lang = _langISOHelper.getISO_639_1_fromText(lang);
                 }
+                
                 if (iso_lang == null) {
                     //TODO: error log
                     if (_logger != null) {
@@ -464,6 +472,7 @@ public class DublinCore {
      * @return the _identifiers
      */
     public ArrayList<String> getIdentifiers() {
+        
         return _identifiers;
     }
 

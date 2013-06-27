@@ -117,6 +117,7 @@ public class Voa3rAP2 extends DublinCore {
         this._alternative = qdc.getAlternative();
         this._abstract = qdc.getAbstract();
         this._bibliographicCitation = qdc.getBibliographicCitation();
+       
         this._accessRights = qdc.getAccessRights();
         this._license = qdc.getLicense();
         this._conformsTo = qdc.getConformsTo();
@@ -408,6 +409,7 @@ public class Voa3rAP2 extends DublinCore {
   public String toString() {
     String ret = "Voa3rAP2 {\n" +
         "\ttitle: " + this.getTitles().toString() + "\n" +
+        "\ttitle_without_language: " + this.getTitles().toString() + "\n" +
         "\talternative: " + this.getAlternative().toString() + "\n" +
         "\tcreator: " + this.getCreators().toString() + "\n" +
         "\tcontributor: " + this.getContributors().toString() + "\n" +

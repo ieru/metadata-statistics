@@ -51,11 +51,18 @@ public class Title2Title {
             //it is possible that the title element contains a dc:alternativetitle
             //so the rest of the code does not make any sense here
             if (titleValue.length() > 2) {
+               
                 String lang = child.getAttributeValue("lang", xmlNS);
+               
                 String iso_lang = null;
                 if (lang != null) {
+                   
                     iso_lang = new String();
                     iso_lang = langISOHelper.getISO_639_1_fromText(lang.toLowerCase());
+                }
+                else
+                {
+                    lang="null";
                 }
                 boolean englishByDefault = false;
                 if (iso_lang == null) {
@@ -86,7 +93,7 @@ public class Title2Title {
                     }
                 }
 
-                agris.addTitle(iso_lang, titleValue);
+                agris.addTitle(lang, titleValue);
             }
         } else //1.1-alternative
         if (metadata.compareTo("alternative") == 0) {

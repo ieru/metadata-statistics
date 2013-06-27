@@ -1,18 +1,18 @@
 /*
-ont-space - The ontology-based resource metadata repository
-Copyright (c) 2006-2011, Information Eng. Research Unit - Univ. of Alcalá
-http://www.cc.uah.es/ie
-This library is free software; you can redistribute it and/or modify it under
-the terms of the GNU Lesser General Public License as published by the Free
-Software Foundation; either version 2.1 of the License, or (at your option)
-any later version.
-This library is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-details.
-You should have received a copy of the GNU Lesser General Public License along
-with this library; if not, write to the Free Software Foundation, Inc.,
-59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ ont-space - The ontology-based resource metadata repository
+ Copyright (c) 2006-2011, Information Eng. Research Unit - Univ. of Alcalá
+ http://www.cc.uah.es/ie
+ This library is free software; you can redistribute it and/or modify it under
+ the terms of the GNU Lesser General Public License as published by the Free
+ Software Foundation; either version 2.1 of the License, or (at your option)
+ any later version.
+ This library is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ details.
+ You should have received a copy of the GNU Lesser General Public License along
+ with this library; if not, write to the Free Software Foundation, Inc.,
+ 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package es.uah.cc.ie.metadatastatistics.conversor.agrisap;
 
@@ -26,6 +26,7 @@ public class Identifier2Identifier {
 
     /**
      * Obtain the identifier
+     *
      * @param child JDOM Element
      * @param agris Agris object
      */
@@ -35,9 +36,37 @@ public class Identifier2Identifier {
         //10-Identifier
         if (metadata.compareTo("identifier") == 0) {
             String value = child.getTextTrim();
-             if (value.length() > 2)
-            {
-            agris.setIdentifier(value);
+            if (value.length() > 2) {
+                agris.setIdentifier(value);
+
+                String scheme = child.getAttributeValue("scheme");
+                if (scheme.contains("URI")) {
+                   
+                    agris.setIdentifier_URI(child.getTextTrim());
+
+//            } else {
+//                agris.setIdentifier_URI(null);
+                }
+                if (scheme.contains("ISBN")) {
+                    agris.setIdentifier_ISBN(child.getTextTrim());
+
+//            } else {
+//                agris.setIdentifier_ISBN(null);
+                }
+                if (scheme.contains("ISSN")) {
+                    agris.setIdentifier_ISSN(child.getTextTrim());
+
+
+//            } else {
+//                agris.setIdentifier_ISSN(null);
+                }
+                if (scheme.contains("DOI")) {
+                    agris.setIdentifier_DOI(child.getTextTrim());
+
+//            } else {
+//                agris.setIdentifier_DOI(null);
+                }
+
             }
         }
 

@@ -10,6 +10,7 @@ import java.util.Collection;
 
 /**
  * Voa3rAp2 Schema
+ *
  * @author flag
  */
 public class Voa3rAp2MetadataSchema extends MetadataSchema {
@@ -19,14 +20,19 @@ public class Voa3rAp2MetadataSchema extends MetadataSchema {
         Collection<String> voa3tap2Collection = new ArrayList<String>();
 
         voa3tap2Collection.add("title");
+        voa3tap2Collection.add("title_without_lang");
         voa3tap2Collection.add("alternative");
         voa3tap2Collection.add("creator");
         voa3tap2Collection.add("contributor");
         voa3tap2Collection.add("publisher");
         voa3tap2Collection.add("date");
-        voa3tap2Collection.add("identifier");    
+        voa3tap2Collection.add("identifier");
+        voa3tap2Collection.add("identifier_ISBN");
+        voa3tap2Collection.add("identifier_ISSN");
+        voa3tap2Collection.add("identifier_URI");
+        voa3tap2Collection.add("identifier_DOI");
         voa3tap2Collection.add("language");
-        voa3tap2Collection.add("relation");      
+        voa3tap2Collection.add("relation");
         voa3tap2Collection.add("rights");
         voa3tap2Collection.add("format");
         voa3tap2Collection.add("isShownBy");
@@ -46,10 +52,10 @@ public class Voa3rAp2MetadataSchema extends MetadataSchema {
         voa3tap2Collection.add("hasPart");
         voa3tap2Collection.add("isPartOf");
         //voa3tap2Collection.add("agrovocTerms");   
-        
-        
+
+
         this.declareFields(voa3tap2Collection);
         //List<String> titleNames = new ArrayList<String>();
-      
+
     }
 }

@@ -8,6 +8,7 @@ import es.uah.cc.ie.metadatastatistics.*;
 import es.uah.cc.ie.metadatastatistics.conversor.Voa3rAP2.*;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp2MetadataSchema;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +26,18 @@ public class Voa3rAP2XMLMetadataParser implements MetadataParser {
         vap2.parseVoa3rAP2XML();
         try {
 
-            if (!vap2.getTitles().isEmpty()) {
+//            if (!vap2.getTitles().isEmpty()) {
+//                res.set("title", vap2.getTitles());
+//            }
+            System.out.println(vap2.getTitles());
+             if (!vap2.getTitles().isEmpty()) {
                 res.set("title", vap2.getTitles());
+
+                if (vap2.getTitle("null") != null) {
+                    System.out.println("ENTRO");
+                    res.set("title_without_lang", "null");
+                }
+
             }
             if (!vap2.getAlternative().isEmpty()) {
                 res.set("alternative", vap2.getAlternative());
@@ -44,6 +55,27 @@ public class Voa3rAP2XMLMetadataParser implements MetadataParser {
                 res.set("date", vap2.getDates());
             }
             if (!vap2.getIdentifiers().isEmpty()) {
+                  ArrayList<String> identifiers=vap2.getIdentifiers();
+                 for (String ident : identifiers)  
+                 {
+                      System.out.println(ident);
+                     if(ident.indexOf("http:")>=0)
+                     {
+                        res.set("identifier_URI", vap2.getIdentifiers());
+                     }
+                     else if(ident.indexOf("ISBN:")>=0)
+                     {
+                        res.set("identifier_ISBN", vap2.getIdentifiers());
+                     }
+                     else if(ident.indexOf("ISSN:")>=0)
+                     {
+                        res.set("identifier_ISSN", vap2.getIdentifiers());
+                     }
+                      else if(ident.indexOf("doi:")>=0)
+                     {
+                        res.set("identifier_DOI", vap2.getIdentifiers());
+                     }
+                 }
                 res.set("identifier", vap2.getIdentifiers());
             }
             if (!vap2.getLanguages().isEmpty()) {

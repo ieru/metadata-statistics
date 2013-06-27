@@ -10,61 +10,81 @@ import java.util.Collection;
 
 /**
  * AgrisAP Schema
+ *
  * @author flag
  */
 public class AgrisAPMetadataSchema extends MetadataSchema {
 
     public AgrisAPMetadataSchema() {
-    super();
-     Collection<String> agapCollection = new ArrayList<String>();
+        super();
+        Collection<String> agapCollection = new ArrayList<String>();
 
-        
+
 //        //List<String> titleNames = new ArrayList<String>();
         agapCollection.add("title");
+        agapCollection.add("title_without_lang");
         agapCollection.add("alternative");
-        
-       // List<String> creatorNames = new ArrayList<String>();
+
+        // List<String> creatorNames = new ArrayList<String>();
         agapCollection.add("creator");
         agapCollection.add("creatorPersonal");
         agapCollection.add("creatorCorporate");
         agapCollection.add("creatorConference");
-        
-       // List<String> publisherNames = new ArrayList<String>();
+
+        // List<String> publisherNames = new ArrayList<String>();
         agapCollection.add("publisher");
         agapCollection.add("publisherName");
         agapCollection.add("publisherPlace");
-        
-       // List<String> dateNames = new ArrayList<String>();
+
+        // List<String> dateNames = new ArrayList<String>();
         agapCollection.add("date");
         //extra cheking about the date and dateIssued elements inside 
         //    the Date2Date translator
         //agapCollection.add("dateIssued");
-        
+
         //List<String> subjectNames = new ArrayList<String>();
         agapCollection.add("subject");
         agapCollection.add("subjectClassification");
         agapCollection.add("subjectThesaurus");
-        
-       // List<String> descriptionNames = new ArrayList<String>();
+        agapCollection.add("subjectThesaurus_URI");
+        agapCollection.add("subjectThesaurus_TEXT");
+        agapCollection.add("subjectThesaurus_AGROVOC_TEXT");
+        agapCollection.add("subjectThesaurus_AGROVOC_URI");
+        agapCollection.add("subjectThesaurus_PO_TEXT");
+        agapCollection.add("subjectThesaurus_PO_URI");
+        agapCollection.add("subjectThesaurus_CABI_TEXT");
+        agapCollection.add("subjectThesaurus_CABI_URI");
+        agapCollection.add("subjectThesaurus_ASFAT_TEXT");
+        agapCollection.add("subjectThesaurus_ASFAT_URI");
+        agapCollection.add("subjectThesaurus_NALT_TEXT");
+        agapCollection.add("subjectThesaurus_NALT_URI");
+
+
+
+        // List<String> descriptionNames = new ArrayList<String>();
         agapCollection.add("abstract");
         agapCollection.add("descriptionNotes");
         agapCollection.add("descriptionEdition");
-        
-       // List<String> identifierNames = new ArrayList<String>();
+
+        // List<String> identifierNames = new ArrayList<String>();
         agapCollection.add("identifier");
-        
-       // List<String> typeNames = new ArrayList<String>();
+        agapCollection.add("identifier_ISBN");
+        agapCollection.add("identifier_ISSN");
+        agapCollection.add("identifier_URI");
+        agapCollection.add("identifier_DOI");
+
+        // List<String> typeNames = new ArrayList<String>();
         agapCollection.add("type");
-        
+
         //List<String> formatNames = new ArrayList<String>();
         agapCollection.add("format");
         agapCollection.add("extent");
         agapCollection.add("medium");
-        
-      //  List<String> languageNames = new ArrayList<String>();
+
+        //  List<String> languageNames = new ArrayList<String>();
         agapCollection.add("language");
-        
-      //  List<String> relationNames = new ArrayList<String>();
+
+        //  List<String> relationNames = new ArrayList<String>();
         agapCollection.add("relation");
         agapCollection.add("isVersionOf");
         agapCollection.add("hasVersion");
@@ -80,33 +100,33 @@ public class AgrisAPMetadataSchema extends MetadataSchema {
         agapCollection.add("hasFormat");
         agapCollection.add("isTranslationOf");
         agapCollection.add("hasTranslation");
-        
-       // List<String> sourceNames = new ArrayList<String>();
+
+        // List<String> sourceNames = new ArrayList<String>();
         agapCollection.add("source");
-        
-      //  List<String> rightsNames = new ArrayList<String>();
+
+        //  List<String> rightsNames = new ArrayList<String>();
         agapCollection.add("rights");
         agapCollection.add("rightsStatement");
         agapCollection.add("termsOfUse");
-        
-       // List<String> coverageNames = new ArrayList<String>();
+
+        // List<String> coverageNames = new ArrayList<String>();
         agapCollection.add("coverage");
         agapCollection.add("spatial");
         agapCollection.add("temporal");
-        
-       // List<String> availabilityNames = new ArrayList<String>();
+
+        // List<String> availabilityNames = new ArrayList<String>();
         agapCollection.add("availability");
         agapCollection.add("availabilityLocation");
         agapCollection.add("availabilityNumber");
-        
-       // List<String> citationNames = new ArrayList<String>();
+
+        // List<String> citationNames = new ArrayList<String>();
         agapCollection.add("citation");
         agapCollection.add("citationTitle");
         agapCollection.add("citationIdentifier");
         agapCollection.add("citationNumber");
         agapCollection.add("citationChronology");
-         this.declareFields(agapCollection);
-     
+        this.declareFields(agapCollection);
+
 //     List<String> titleNames = new ArrayList<String>();
 //        titleNames.add("title");
 //        titleNames.add("alternative");

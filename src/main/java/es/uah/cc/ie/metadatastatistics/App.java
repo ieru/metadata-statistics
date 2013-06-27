@@ -8,6 +8,10 @@ import es.uah.cc.ie.metadatastatistics.schemas.AgrisAPMetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.DCMetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp2MetadataSchema;
 import es.uah.cc.ie.metadatastatistics.schemas.Voa3rAp4MetadataSchema;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,22 +20,55 @@ import java.util.logging.Logger;
 
 /**
  * Main Class
+ *
  * @author flag
  */
 public class App {
 
     /**
-     * Enter point of this program. It recieves the Path and Schema Name
-     * @param args 
+     * Enter point of this program. It recieves the Path and Schema Name     *
+     * @param args
      */
-    public static void main(String[] args) {
-        MetadataSchema defaultSchema = null;
+    public static void main(String[] args) throws IOException {
+               MetadataSchema defaultSchema = null;
         MetadataParser parser = null;
         ResourceSource source = null;
         ResourceSample sample = null;
         String dirPath = "";
         String schema = "";
 
+         String htmlFile = "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 3.2//EN'>"
+            + "<HTML>"
+            + "<HEAD>"
+            + "<META HTTP-EQUIV='CONTENT-TYPE' CONTENT='text/html; charset=utf-8'>"
+            + "<TITLE></TITLE>"
+            + "<META NAME='GENERATOR' CONTENT='LibreOffice 3.5  (Linux)'>"
+            + "<META NAME='CREATED' CONTENT='20130529;12354500'>"
+            + "<META NAME='CHANGED' CONTENT='20130529;12434800'>"
+            + "<STYLE>"
+            + "	<!-- "
+            + "	BODY,DIV,TABLE,THEAD,TBODY,TFOOT,TR,TH,TD,P { font-family:'Liberation Sans'; font-size:x-small }"
+            + "	 -->"
+            + "</STYLE>"
+            + "</HEAD>"
+            + "<BODY TEXT='#000000'>"
+            + "<TABLE CELLSPACING='0' COLS='2' BORDER='0'>"
+            + "	<COLGROUP WIDTH='293'></COLGROUP>"
+            + "	<COLGROUP WIDTH='60'></COLGROUP>"
+            + "	<TR>"
+            + "		<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' HEIGHT='23' ALIGN='LEFT' BGCOLOR='#C0C0C0'><FONT FACE='Liberation Serif' SIZE=4>Mandatory</FONT></TD>"
+            + "		<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' ALIGN='LEFT' BGCOLOR='#C0C0C0'><FONT FACE='Liberation Serif'>&nbsp;</FONT></TD>"
+            + "	</TR>";
+           
+        String sFichero = "./table.html";
+        File tablaFile = new File(sFichero);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tablaFile));
+        bw.write(htmlFile);
+        String type="";
+        String subtype="  - ";
+        String subsubtype="     * ";
+        
+        
         try {
             if (args.length != 0) {
 
@@ -41,7 +78,7 @@ public class App {
                         schema = args[1];
                     }
 
-                     //create a schema and parser 
+                    //create a schema and parser 
                     switch (dataSchema.toDataSchema(schema)) {
                         case voa3rAP2:
                             defaultSchema = new Voa3rAp2MetadataSchema();
@@ -70,7 +107,7 @@ public class App {
                             break;
 
                     }
-                 
+
                     //configure a new resourceSource: we give the path to the resources and the parser to parse it
 
 
@@ -81,285 +118,66 @@ public class App {
 
                         source = new FSAgrisResourceSource(dirPath, parser);
                     }
-                  
+
                     ArrayList<String> countValuesOfFields = new ArrayList<String>();
                     countValuesOfFields.add("type");
                     countValuesOfFields.add("format");
-                   
-                    sample = new ResourceSampleImpl("Example Repository", defaultSchema, source,countValuesOfFields);
+
+                    sample = new ResourceSampleImpl("Example Repository", defaultSchema, source, countValuesOfFields);
                     System.out.println("The sample " + sample.getName() + " has " + sample.size() + " resources.");
                     System.out.println(sample.countValid() + " resources are valid.");
                     Map<String, String> table = new HashMap();
-
+                    String fieldTable="";
                     for (String field : sample.getSchema().getFields()) {
+                         type="";
+                         fieldTable=field;
                         try {
+                           
+                            if(("title_without_lang".equals(field))||("creator_name".equals(field))||("creator_email".equals(field))||("creator_organization".equals(field))||("creator_foaf".equals(field))||("creator_uri".equals(field))
+                                ||("contributor_name".equals(field))||("contributor_email".equals(field))||("contributor_organization".equals(field))||("contributor_foaf".equals(field))||("contributor_uri".equals(field))
+                                ||("publisher_name".equals(field))||("publisher_email".equals(field))||("publisher_organization".equals(field))
+                                ||("publisher_foaf".equals(field))||("identifier_URI".equals(field))||("identifier_ISBN".equals(field))||("identifier_ISSN".equals(field))||("identifier_DOI".equals(field))){
+                                type=subtype;
+                                
+                            }
+                            else
+                            {
+                                fieldTable=fieldTable.toUpperCase();
+                            }
+                            if(("creator".equals(field)))
+                            {
+                                 bw.write("<TR>"
+                               + "		<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' HEIGHT='23' ALIGN='LEFT' BGCOLOR='#C0C0C0'><FONT FACE='Liberation Serif' SIZE=4>Recommenderd</FONT></TD>"
+            + "		<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' ALIGN='LEFT' BGCOLOR='#C0C0C0'><FONT FACE='Liberation Serif'>&nbsp;</FONT></TD>"
+                                + "</TR>");
+                            }
+                            
+                            bw.write("<TR>"
+                                + "<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' HEIGHT='17' ALIGN='LEFT'><FONT FACE='Liberation Serif SIZE=10'>"+type +" "+ fieldTable + "(Element)</FONT></TD>"
+                                + "<TD STYLE='border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000' ALIGN='LEFT'><FONT FACE='Liberation Serif'>" + sample.countHaveField(field) + "</FONT></TD>"
+                                + "</TR>");
                             System.out.println(sample.countHaveField(field) + " has the " + field + " attribute. ");
                             table.put(field, String.valueOf(sample.countHaveField(field)));
+                            
 
                         } catch (NoSuchFieldException ex) {
                             Logger.getLogger(App.class.getName()).log(Level.WARNING, "The field " + field + " isn't in the schema", ex);
                         }
                     }
+
                     for (String field : countValuesOfFields) {
-                        System.out.println("Different values of:" +field + ": " +  sample.valuesOfField(field));
+                        System.out.println("Different values of:" + field + ": " + sample.valuesOfField(field));
                     }
-                    
-//                    String sFichero = "/home/flag/tabla.txt";
-//                    try {
-//                        File tablaFile = new File(sFichero);
-//                        try {
-//                            BufferedWriter bw = new BufferedWriter(new FileWriter(tablaFile));
-//                            //for (int x = 0; x < 57; x++) {
-//                            if (schema.equals("voa3rAP4")) {
-//                                bw.write(table.get("title"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("language"));
-//                                bw.write("\n");
-//                                bw.write(table.get("type"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("creator"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("creator_name"));
-//                                bw.write("\n");
-//                                bw.write(table.get("creator_organization"));
-//                                bw.write("\n");
-//                                bw.write(table.get("creator_email"));
-//                                bw.write("\n");
-//                                bw.write(table.get("contributor"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("contributor_name"));
-//                                bw.write("\n");
-//                                bw.write(table.get("contributor_organization"));
-//                                bw.write("\n");
-//                                bw.write(table.get("contributor_email"));
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher_name"));
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher_organization"));
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher_email"));
-//                                bw.write("\n");
-//                                bw.write(table.get("date"));
-//                                bw.write("\n");
-//                                bw.write(table.get("identifier"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("rights"));
-//                                bw.write("\n");
-//                                bw.write(table.get("accessRights"));
-//                                bw.write("\n");
-//                                bw.write(table.get("license"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("subject"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("description"));
-//                                bw.write("\n");
-//                                bw.write(table.get("bibligraphicCitation"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("publicationStatus"));
-//                                bw.write("\n");
-//                                bw.write(String.valueOf(sample.countValid()));
-//                            } else if (schema.equals("voa3rAP2")) {
-//                                bw.write(table.get("title"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("language"));
-//                                bw.write("\n");
-//                                bw.write(table.get("type"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("creator"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("contributor"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("date"));
-//                                bw.write("\n");
-//                                bw.write(table.get("identifier"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("rights"));
-//                                bw.write("\n");
-//                                bw.write(table.get("accessRights"));
-//                                bw.write("\n");
-//                                bw.write(table.get("license"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("subject"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("description"));
-//                                bw.write("\n");
-//                                bw.write(table.get("bibligraphicCitation"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("publicationStatus"));
-//                                bw.write("\n");
-//                                bw.write(String.valueOf(sample.countValid()));
-//                            } else if (schema.equals("Agris")) {
-//                                bw.write(table.get("title"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("language"));
-//                                bw.write("\n");
-//                                bw.write(table.get("type"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("creator"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                              
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("publisher"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("date"));
-//                                bw.write("\n");
-//                                bw.write(table.get("identifier"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("rights"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                            
-//                          
-//                                bw.write("\n");
-//                                bw.write(table.get("rightsStatement"));
-//                                bw.write("\n");
-//                                bw.write(table.get("subject"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(table.get("abstract"));
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                          
-//                                bw.write("\n");
-//                           
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write("\n");
-//                                bw.write(String.valueOf(sample.countValid()));
-//                            }
-//
-//                            bw.close();
-//                        } catch (IOException ioe) {
-//                            System.out.println("Error dentro");
-//                            ioe.printStackTrace();
-//                        }
-//
-//                    } catch (Exception e) {
-//                        System.out.println("Error fuera");
-//                        e.printStackTrace();
-//                    }
+
+                    bw.write("</TABLE>"
+                        + "<!-- ************************************************************************** -->"
+                        + "</BODY>"
+                        + "</HTML>");
+                    bw.close();
+
+
+
+
 
 
                 } else {
@@ -372,7 +190,7 @@ public class App {
 
             }
         } catch (Exception e) {
-         
+
             help("Error: " + e.toString());
         }
     }
@@ -402,13 +220,13 @@ public class App {
 
 
     }
-    
+
     public enum dataSchema {
 
         voa3rAP2, voa3rAP4, dublinCore, Agris;
 
         /**
-         * 
+         *
          * @param str
          * @return dataSchema
          */

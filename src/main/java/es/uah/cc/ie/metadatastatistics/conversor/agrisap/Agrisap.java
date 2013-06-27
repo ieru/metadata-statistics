@@ -1,18 +1,18 @@
 /*
-ont-space - The ontology-based resource metadata repository
-Copyright (c) 2006-2011, Information Eng. Research Unit - Univ. of Alcalá
-http://www.cc.uah.es/ie
-This library is free software; you can redistribute it and/or modify it under
-the terms of the GNU Lesser General Public License as published by the Free
-Software Foundation; either version 2.1 of the License, or (at your option)
-any later version.
-This library is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-details.
-You should have received a copy of the GNU Lesser General Public License along
-with this library; if not, write to the Free Software Foundation, Inc.,
-59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ ont-space - The ontology-based resource metadata repository
+ Copyright (c) 2006-2011, Information Eng. Research Unit - Univ. of Alcalá
+ http://www.cc.uah.es/ie
+ This library is free software; you can redistribute it and/or modify it under
+ the terms of the GNU Lesser General Public License as published by the Free
+ Software Foundation; either version 2.1 of the License, or (at your option)
+ any later version.
+ This library is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ details.
+ You should have received a copy of the GNU Lesser General Public License along
+ with this library; if not, write to the Free Software Foundation, Inc.,
+ 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package es.uah.cc.ie.metadatastatistics.conversor.agrisap;
 
@@ -32,18 +32,34 @@ import org.jdom.input.SAXBuilder;
 import es.uah.cc.ie.metadatastatistics.conversor.*;
 
 /**
- *Java class to model de Agris AP resources
+ * Java class to model de Agris AP resources
  */
 public class Agrisap {
-    
+
     private ArrayList<String> _subjectThesaurus =
-            new ArrayList<String>();
+        new ArrayList<String>();
     //DublinCore and QDC Metadata
     private ArrayList<String> _identifier = null;
+    private ArrayList<String> _identifier_URI = null;
+    private ArrayList<String> _identifier_ISBN = null;
+    private ArrayList<String> _identifier_ISSN = null;
+    private ArrayList<String> _identifier_DOI = null;
     private HashMap<String, String> _title = null;
     private ArrayList<String> _language = null;
     private ArrayList<String> _description = null;
     private ArrayList<String> _subject = null;
+    private ArrayList<String> _subjectThesaurus_URI;
+    private ArrayList<String> _subjectThesaurus_TEXT;
+    private ArrayList<String> _subjectThesaurus_AGROVOC_TEXT;
+    private ArrayList<String> _subjectThesaurus_AGROVOC_URI;
+    private ArrayList<String> _subjectThesaurus_PO_TEXT;
+    private ArrayList<String> _subjectThesaurus_PO_URI;
+    private ArrayList<String> _subjectThesaurus_CABI_TEXT;
+    private ArrayList<String> _subjectThesaurus_CABI_URI;
+    private ArrayList<String> _subjectThesaurus_ASFAT_TEXT;
+    private ArrayList<String> _subjectThesaurus_ASFAT_URI;
+    private ArrayList<String> _subjectThesaurus_NALT_TEXT;
+    private ArrayList<String> _subjectThesaurus_NALT_URI;
     private ArrayList<String> _coverage = null;
     private ArrayList<String> _type = null;
     private ArrayList<String> _date = null;
@@ -102,14 +118,33 @@ public class Agrisap {
 
     /**
      * Default constructor
+     *
      * @param xmlFile XML file with the metadata (absolute path)
      */
     public Agrisap(File xmlFile) {
         _identifier = new ArrayList();
+        _identifier_URI = new ArrayList();
+        _identifier_DOI = new ArrayList();
+        _identifier_ISBN = new ArrayList();
+        _identifier_ISSN = new ArrayList();
         _title = new HashMap<String, String>();
         _language = new ArrayList();
         _description = new ArrayList();
         _subject = new ArrayList();
+
+        _subjectThesaurus_URI = new ArrayList();
+        _subjectThesaurus_TEXT = new ArrayList();
+        _subjectThesaurus_AGROVOC_TEXT = new ArrayList();
+        _subjectThesaurus_AGROVOC_URI = new ArrayList();
+        _subjectThesaurus_PO_TEXT = new ArrayList();
+        _subjectThesaurus_PO_URI = new ArrayList();
+        _subjectThesaurus_CABI_TEXT = new ArrayList();
+        _subjectThesaurus_CABI_URI = new ArrayList();
+        _subjectThesaurus_ASFAT_TEXT = new ArrayList();
+        _subjectThesaurus_ASFAT_URI = new ArrayList();
+        _subjectThesaurus_NALT_TEXT = new ArrayList();
+        _subjectThesaurus_NALT_URI = new ArrayList();
+
         _coverage = new ArrayList();
         _type = new ArrayList();
         _date = new ArrayList();
@@ -167,6 +202,7 @@ public class Agrisap {
 
     /**
      * Constructor with the language detector
+     *
      * @param xmlFile XML file with the metadata (absolute path)
      * @param logger Logger
      */
@@ -177,12 +213,13 @@ public class Agrisap {
 
     /**
      * Constructor with all the parameters
+     *
      * @param xmlFile XML file with the metadata (absolute path)
      * @param logger Logger
      * @param langDetector Language detector
      */
     public Agrisap(File xmlFile, Logger logger,
-            AutomaticLangDetector langDetector) {
+        AutomaticLangDetector langDetector) {
         this(xmlFile, logger);
         _detector = langDetector;
     }
@@ -201,16 +238,17 @@ public class Agrisap {
             is.close();
         } catch (JDOMException ex) {
             Logger.getLogger(Agrisap.class.getName()).log(Level.SEVERE, null,
-                    ex);
+                ex);
         } catch (IOException ex) {
             Logger.getLogger(Agrisap.class.getName()).log(Level.SEVERE, null,
-                    ex);
+                ex);
         }
     }
 
     /**
-     * This method receives JDOM Element and creates an Agris Object that
-     * stores its content.
+     * This method receives JDOM Element and creates an Agris Object that stores
+     * its content.
+     *
      * @param root JDOM root element
      */
     public void parseAgrisapXML(Element root) {
@@ -218,61 +256,64 @@ public class Agrisap {
             translateNodes(root);
         } catch (Exception ex) {
             Logger.getLogger(Agrisap.class.getName()).log(Level.SEVERE, null,
-                    ex);
+                ex);
         }
     }
 
     /**
      * Translate each XML node
+     *
      * @param root DOM element
      */
     public void translateNodes(Element root) {
-        
+
         List<String> titleNames = new ArrayList<String>();
         titleNames.add("title");
         titleNames.add("alternative");
-        
+
         List<String> creatorNames = new ArrayList<String>();
         creatorNames.add("creator");
         creatorNames.add("creatorPersonal");
         creatorNames.add("creatorCorporate");
         creatorNames.add("creatorConference");
-        
+
         List<String> publisherNames = new ArrayList<String>();
         publisherNames.add("publisher");
         publisherNames.add("publisherName");
         publisherNames.add("publisherPlace");
-        
+
         List<String> dateNames = new ArrayList<String>();
         dateNames.add("date");
         //extra cheking about the date and dateIssued elements inside 
         //    the Date2Date translator
         //dateNames.add("dateIssued");
-        
+
         List<String> subjectNames = new ArrayList<String>();
         subjectNames.add("subject");
         subjectNames.add("subjectClassification");
         subjectNames.add("subjectThesaurus");
-        
+
         List<String> descriptionNames = new ArrayList<String>();
         descriptionNames.add("abstract");
         descriptionNames.add("descriptionNotes");
         descriptionNames.add("descriptionEdition");
-        
+
         List<String> identifierNames = new ArrayList<String>();
         identifierNames.add("identifier");
-        
+
+
+
         List<String> typeNames = new ArrayList<String>();
         typeNames.add("type");
-        
+
         List<String> formatNames = new ArrayList<String>();
         formatNames.add("format");
         formatNames.add("extent");
         formatNames.add("medium");
-        
+
         List<String> languageNames = new ArrayList<String>();
         languageNames.add("language");
-        
+
         List<String> relationNames = new ArrayList<String>();
         relationNames.add("relation");
         relationNames.add("isVersionOf");
@@ -289,102 +330,88 @@ public class Agrisap {
         relationNames.add("hasFormat");
         relationNames.add("isTranslationOf");
         relationNames.add("hasTranslation");
-        
+
         List<String> sourceNames = new ArrayList<String>();
         sourceNames.add("source");
-        
+
         List<String> rightsNames = new ArrayList<String>();
         rightsNames.add("rights");
         rightsNames.add("rightsStatement");
         rightsNames.add("termsOfUse");
-        
+
         List<String> coverageNames = new ArrayList<String>();
         coverageNames.add("coverage");
         coverageNames.add("spatial");
         coverageNames.add("temporal");
-        
+
         List<String> availabilityNames = new ArrayList<String>();
         availabilityNames.add("availability");
         availabilityNames.add("availabilityLocation");
         availabilityNames.add("availabilityNumber");
-        
+
         List<String> citationNames = new ArrayList<String>();
         citationNames.add("citation");
         citationNames.add("citationTitle");
         citationNames.add("citationIdentifier");
         citationNames.add("citationNumber");
         citationNames.add("citationChronology");
-        
+
         List<Element> children = root.getChildren();
         for (Element child : children) {
             //      System.out.println("traduciendo elemento "+child.getName());
             String childrenName = child.getName();
-            
+
             if (identifierNames.contains(childrenName)) {
                 Identifier2Identifier identifier2Identifier =
-                        new Identifier2Identifier(child, this);
-            } else
-            if (titleNames.contains(childrenName)) {
+                    new Identifier2Identifier(child, this);
+
+
+            } else if (titleNames.contains(childrenName)) {
                 Title2Title title2Title = new Title2Title(child, this,
-                        _langISOHelper, _detector, _logger, _xmlFile);
-            } else
-            if (languageNames.contains(childrenName)) {
+                    _langISOHelper, _detector, _logger, _xmlFile);
+            } else if (languageNames.contains(childrenName)) {
                 Language2Language language2Language = new Language2Language(
-                        child, this);
-            } else
-            if (descriptionNames.contains(childrenName)) {
+                    child, this);
+            } else if (descriptionNames.contains(childrenName)) {
                 Description2Description description2Description =
-                        new Description2Description(child, this,
-                        _langISOHelper, _detector, _logger, _xmlFile);
-            } else
-            if (subjectNames.contains(childrenName)) {
+                    new Description2Description(child, this,
+                    _langISOHelper, _detector, _logger, _xmlFile);
+            } else if (subjectNames.contains(childrenName)) {
                 Subject2Subject subject2Subject =
-                        new Subject2Subject(child, this);
-            } else
-            if (coverageNames.contains(childrenName)) {
+                    new Subject2Subject(child, this);
+            } else if (coverageNames.contains(childrenName)) {
                 Coverage2Coverage coverage2Coverage = new Coverage2Coverage(
-                        child, this);
-            } else
-            if (typeNames.contains(childrenName)) {
+                    child, this);
+            } else if (typeNames.contains(childrenName)) {
                 Type2Type type2Type = new Type2Type(child, this);
-            } else
-            if (dateNames.contains(childrenName)) {
+            } else if (dateNames.contains(childrenName)) {
                 Date2Date date2Date = new Date2Date(child, this);
-            } else
-            if (creatorNames.contains(childrenName)) {
+            } else if (creatorNames.contains(childrenName)) {
                 Creator2Creator creator2Creator =
-                        new Creator2Creator(child, this);
-            } else
-            
-            if (publisherNames.contains(childrenName)) {
+                    new Creator2Creator(child, this);
+            } else if (publisherNames.contains(childrenName)) {
                 Publisher2Publisher publisher2Publisher =
-                        new Publisher2Publisher(child, this);
-            } else
-            if (formatNames.contains(childrenName)) {
+                    new Publisher2Publisher(child, this);
+            } else if (formatNames.contains(childrenName)) {
                 Format2Format format2Format = new Format2Format(child, this);
-            } else
-            if (rightsNames.contains(childrenName)) {
+            } else if (rightsNames.contains(childrenName)) {
                 Rights2Rights rights2Rights = new Rights2Rights(child, this);
-            } else
-            if (relationNames.contains(childrenName)) {
+            } else if (relationNames.contains(childrenName)) {
                 Relation2Relation relation2Relation = new Relation2Relation(
-                        child, this);
-            } else
-            if (sourceNames.contains(childrenName)) {
+                    child, this);
+            } else if (sourceNames.contains(childrenName)) {
                 Source2Source source2Source = new Source2Source(child, this);
-            } else 
-            if (availabilityNames.contains(childrenName)) {
+            } else if (availabilityNames.contains(childrenName)) {
                 Availability2Availability availability2availability =
-                        new Availability2Availability(child, this);
-            } else
-            if (citationNames.contains(childrenName)) {
+                    new Availability2Availability(child, this);
+            } else if (citationNames.contains(childrenName)) {
                 Citation2Citation citation2citation = new Citation2Citation(
-                        child, this);
+                    child, this);
             }
-            
+
             translateNodes(child);
         }
-        
+
     }
 
     /**
@@ -393,13 +420,92 @@ public class Agrisap {
     public ArrayList<String> getSubjectThesaurus() {
         return _subjectThesaurus;
     }
+    
+   
+    
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_URI() {
+        return _subjectThesaurus_URI;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_TEXT() {
+        return _subjectThesaurus_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_AGROVOC_TEXT() {
+        return _subjectThesaurus_AGROVOC_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_AGROVOC_URI() {
+        return _subjectThesaurus_AGROVOC_URI;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_PO_TEXT() {
+        return _subjectThesaurus_PO_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_PO_URI() {
+        return _subjectThesaurus_PO_URI;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_CABI_TEXT() {
+        return _subjectThesaurus_CABI_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_CABI_URI() {
+        return _subjectThesaurus_CABI_URI;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_ASFAT_TEXT() {
+        return _subjectThesaurus_ASFAT_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_ASFAT_URI() {
+        return _subjectThesaurus_ASFAT_URI;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_NALT_TEXT() {
+        return _subjectThesaurus_NALT_TEXT;
+    }
+     /**
+     * @return the _subjectThesaurus values
+     */
+    public ArrayList<String> getSubjectThesaurus_NALT_URI() {
+        return _subjectThesaurus_NALT_URI;
+    }
+    
+    
+    
+    
 
     /**
      * @param subjectThesaurus the _subjectThesaurus to set
      */
     public void setSubjectThesaurus(String subjectThesaurus) {
         _subjectThesaurus.add(subjectThesaurus);
-        
+
     }
 
     /**
@@ -407,6 +513,34 @@ public class Agrisap {
      */
     public ArrayList<String> getIdentifier() {
         return _identifier;
+    }
+
+    /**
+     * @return the _identifier
+     */
+    public ArrayList<String> getIdentifier_URI() {
+        return _identifier_URI;
+    }
+
+    /**
+     * @return the _identifier
+     */
+    public ArrayList<String> getIdentifier_DOI() {
+        return _identifier_DOI;
+    }
+
+    /**
+     * @return the _identifier
+     */
+    public ArrayList<String> getIdentifier_ISSN() {
+        return _identifier_ISSN;
+    }
+
+    /**
+     * @return the _identifier
+     */
+    public ArrayList<String> getIdentifier_ISBN() {
+        return _identifier_ISBN;
     }
 
     /**
@@ -418,8 +552,9 @@ public class Agrisap {
 
     /**
      * Obtain the title in the correct lang
+     *
      * @param lang Language
-     * @return the title in the given language, or null if the title does not 
+     * @return the title in the given language, or null if the title does not
      * exist in this language
      */
     public String getTitle(String lang) {
@@ -533,9 +668,10 @@ public class Agrisap {
 
     /**
      * Get the Abstract in the correct language
+     *
      * @param lang language for the abstract
-     * @return the abstract in the given language, or null if the abstract is not
-     * availabe in the given language
+     * @return the abstract in the given language, or null if the abstract is
+     * not availabe in the given language
      */
     public String getAbstract(String lang) {
         return _abstract.get(lang);
@@ -661,6 +797,34 @@ public class Agrisap {
     }
 
     /**
+     * @param identifier the _identifier to set
+     */
+    public void setIdentifier_URI(String identifier_URI) {
+        this._identifier_URI.add(identifier_URI);
+    }
+
+    /**
+     * @param identifier the _identifier to set
+     */
+    public void setIdentifier_DOI(String identifier_DOI) {
+        this._identifier_DOI.add(identifier_DOI);
+    }
+
+    /**
+     * @param identifier the _identifier to set
+     */
+    public void setIdentifier_ISSN(String identifier_ISSN) {
+        this._identifier_ISSN.add(identifier_ISSN);
+    }
+
+    /**
+     * @param identifier the _identifier to set
+     */
+    public void setIdentifier_ISBN(String identifier_ISBN) {
+        this._identifier_ISBN.add(identifier_ISBN);
+    }
+
+    /**
      * @param lang language of the title
      * @param title the _title to set
      */
@@ -681,12 +845,97 @@ public class Agrisap {
     public void setDescription(String description) {
         this._description.add(description);
     }
-
+ 
     /**
      * @param subject the _subject to set
      */
     public void setSubject(String subject) {
         this._subject.add(subject);
+    }
+ 
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_TEXT(String subjectThesaurus_TEXT) {
+        _subjectThesaurus_TEXT.add(subjectThesaurus_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_AGROVOC_TEXT(String subjectThesaurus_AGROVOC_TEXT) {
+        _subjectThesaurus_AGROVOC_TEXT.add(subjectThesaurus_AGROVOC_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_AGROVOC_URI(String subjectThesaurus_AGROVOC_URI) {
+        _subjectThesaurus_AGROVOC_URI.add(subjectThesaurus_AGROVOC_URI);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_PO_TEXT(String subjectThesaurus_PO_TEXT) {
+        _subjectThesaurus_PO_TEXT.add(subjectThesaurus_PO_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_PO_URI(String subjectThesaurus_PO_URI) {
+        _subjectThesaurus_PO_URI.add(subjectThesaurus_PO_URI);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_CABI_TEXT(String subjectThesaurus_CABI_TEXT) {
+        _subjectThesaurus_CABI_TEXT.add(subjectThesaurus_CABI_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_CABI_URI(String subjectThesaurus_CABI_URI) {
+        _subjectThesaurus_CABI_URI.add(subjectThesaurus_CABI_URI);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_ASFAT_TEXT(String subjectThesaurus_ASFAT_TEXT) {
+        _subjectThesaurus_ASFAT_TEXT.add(subjectThesaurus_ASFAT_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_ASFAT_URI(String subjectThesaurus_ASFAT_URI) {
+        _subjectThesaurus_ASFAT_URI.add(subjectThesaurus_ASFAT_URI);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_NALT_URI(String subjectThesaurus_NALT_URI) {
+        _subjectThesaurus_NALT_URI.add(subjectThesaurus_NALT_URI);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_NALT_TEXT(String subjectThesaurus_NALT_TEXT) {
+        _subjectThesaurus_NALT_TEXT.add(subjectThesaurus_NALT_TEXT);
+
+    }
+      /**
+     * @param subjectThesaurus the _subjectThesaurus to set
+     */
+    public void setSubjectThesaurus_URI(String subjectThesaurus_URI) {
+        _subjectThesaurus_URI.add(subjectThesaurus_URI);
+
     }
 
     /**
@@ -877,87 +1126,87 @@ public class Agrisap {
     public void setTemporal(String temporal) {
         this._temporal.add(temporal);
     }
-    
+
     public void setAvailability(String availability) {
         this._availability.add(availability);
     }
-    
+
     public void setAvailabilityLocation(String value) {
         this._availabilityLocation.add(value);
     }
-    
+
     public void setAvailabilityNumber(String value) {
         this._availabilityNumber.add(value);
     }
-    
+
     public void setCitation(String value) {
         this._citation.add(value);
     }
-    
+
     public void setCitationTitle(String value) {
         this._citationTitle.add(value);
     }
-    
+
     public void setCreatorPersonal(String value) {
         this._creatorPersonal.add(value);
     }
-    
+
     public void setCitationIdentifier(String value) {
         this._citationIdentifier.add(value);
     }
-    
+
     public void setCitationNumber(String value) {
         this._citationNumber.add(value);
     }
-    
+
     public void setCitationChronology(String value) {
         this._citationChronology.add(value);
     }
-    
+
     public void setCreatorCorporate(String value) {
         this._creatorCorporate.add(value);
     }
-    
+
     public void setCreatorConference(String value) {
         this._creatorConference.add(value);
     }
-    
+
     public void setDateIssued(String value) {
         this._dateIssued.add(value);
     }
-    
+
     public void setDescriptionNotes(String value) {
         this._descriptionNotes.add(value);
     }
-    
+
     public void setDescriptionEdition(String value) {
         this._descriptionEdition.add(value);
     }
-    
+
     public void setPublisherName(String value) {
         this._publisherName.add(value);
     }
-    
+
     public void setPublisherPlace(String value) {
         this._publisherPlace.add(value);
     }
-    
+
     public void setIsTranslationOf(String value) {
         this._isTranslationOf.add(value);
     }
-    
+
     public void setHasTranslation(String value) {
         this._hasTranslation.add(value);
     }
-    
+
     public void setRightsStatement(String value) {
         this._rightsStatement.add(value);
     }
-    
+
     public void setTermsOfUse(String value) {
         this._termsOfUse.add(value);
     }
-    
+
     public void setSubjectClassification(String value) {
         this._subjectClassification.add(value);
     }

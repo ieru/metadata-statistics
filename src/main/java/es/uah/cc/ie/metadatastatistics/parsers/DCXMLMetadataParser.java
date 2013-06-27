@@ -61,8 +61,18 @@ public class DCXMLMetadataParser implements MetadataParser {
             if (!dc.getCreators().isEmpty()) {
                 res.set("creator", dc.getCreators());
             }
-            if (!dc.getTitles().isEmpty()) {
+//            if (!dc.getTitles().isEmpty()) {
+//                res.set("title", dc.getTitles());
+//            }
+              if (!dc.getTitles().isEmpty()) {
                 res.set("title", dc.getTitles());
+            
+
+                if (dc.getTitle("null") != null) {
+                    System.out.println("ENTRO");
+                    res.set("title_without_lang", "null");
+                }
+
             }
             if (!dc.getContributors().isEmpty()) {
                 res.set("contributor", dc.getContributors());

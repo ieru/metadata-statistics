@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 import org.jdom.Element;
 
 /**
- *AgrisAp parser
+ * AgrisAp parser
+ *
  * @author flag
  */
 public class AgrisAPMetadataParser implements MetadataParser {
@@ -23,18 +24,25 @@ public class AgrisAPMetadataParser implements MetadataParser {
 
         Resource res = new Resource(new AgrisAPMetadataSchema());
         Agrisap ag = new Agrisap(new File(""));
-        ag.parseAgrisapXML((Element)obj);
+        ag.parseAgrisapXML((Element) obj);
         try {
-
             if (!ag.getTitles().isEmpty()) {
                 res.set("title", ag.getTitles());
+
+                if (ag.getTitle("null") != null) {
+                   
+                    res.set("title_without_lang", "null");
+                }
+
             }
             if (!ag.getAlternative().isEmpty()) {
                 res.set("alternative", ag.getAlternative());
             }
             // List<String> creatorNames = new ArrayList<String>(, ag.
             if (!ag.getCreator().isEmpty()) {
+
                 res.set("creator", ag.getCreator());
+
             }
             if (!ag.getCreatorPersonal().isEmpty()) {
                 res.set("creatorPersonal", ag.getCreatorPersonal());
@@ -73,7 +81,42 @@ public class AgrisAPMetadataParser implements MetadataParser {
             if (!ag.getSubjectThesaurus().isEmpty()) {
                 res.set("subjectThesaurus", ag.getSubjectThesaurus());
             }
-
+             if (!ag.getSubjectThesaurus_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_TEXT", ag.getSubjectThesaurus_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_URI().isEmpty()) {
+                res.set("subjectThesaurus_URI", ag.getSubjectThesaurus_URI());
+            }
+             if (!ag.getSubjectThesaurus_AGROVOC_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_AGROVOC_TEXT", ag.getSubjectThesaurus_AGROVOC_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_AGROVOC_URI().isEmpty()) {
+                res.set("subjectThesaurus_AGROVOC_URI", ag.getSubjectThesaurus_AGROVOC_URI());
+            }
+                if (!ag.getSubjectThesaurus_PO_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_PO_TEXT", ag.getSubjectThesaurus_PO_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_PO_URI().isEmpty()) {
+                res.set("subjectThesaurus_PO_URI", ag.getSubjectThesaurus_PO_URI());
+            }
+  if (!ag.getSubjectThesaurus_CABI_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_CABI_TEXT", ag.getSubjectThesaurus_CABI_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_CABI_URI().isEmpty()) {
+                res.set("subjectThesaurus_CABI_URI", ag.getSubjectThesaurus_CABI_URI());
+            }
+                if (!ag.getSubjectThesaurus_ASFAT_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_ASFAT_TEXT", ag.getSubjectThesaurus_ASFAT_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_ASFAT_URI().isEmpty()) {
+                res.set("subjectThesaurus_ASFAT_URI", ag.getSubjectThesaurus_ASFAT_URI());
+            }
+                if (!ag.getSubjectThesaurus_NALT_TEXT().isEmpty()) {
+                res.set("subjectThesaurus_NALT_TEXT", ag.getSubjectThesaurus_NALT_TEXT());
+            }
+              if (!ag.getSubjectThesaurus_NALT_URI().isEmpty()) {
+                res.set("subjectThesaurus_NALT_URI", ag.getSubjectThesaurus_NALT_URI());
+            }
             // List<String> descriptionNames = new ArrayList<String>(, ag.
             if (!ag.getAbstracts().isEmpty()) {
                 res.set("abstract", ag.getAbstracts());
@@ -89,7 +132,18 @@ public class AgrisAPMetadataParser implements MetadataParser {
             if (!ag.getIdentifier().isEmpty()) {
                 res.set("identifier", ag.getIdentifier());
             }
-
+            if (!ag.getIdentifier_DOI().isEmpty()) {
+                res.set("identifier_DOI", ag.getIdentifier_DOI());
+            }
+            if (!ag.getIdentifier_URI().isEmpty()) {
+                res.set("identifier_URI", ag.getIdentifier_URI());
+            }
+            if (!ag.getIdentifier_ISSN().isEmpty()) {
+                res.set("identifier_ISSN", ag.getIdentifier_ISSN());
+            }
+            if (!ag.getIdentifier_ISBN().isEmpty()) {
+                res.set("identifier_ISBN", ag.getIdentifier_ISBN());
+            }
             // List<String> typeNames = new ArrayList<String>(, ag.
             if (!ag.getType().isEmpty()) {
                 res.set("type", ag.getType());

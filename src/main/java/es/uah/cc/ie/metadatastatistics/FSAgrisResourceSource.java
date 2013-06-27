@@ -63,7 +63,7 @@ public class FSAgrisResourceSource extends AbstractResourceSource {
             agrisResources.addAll(resources.values());
         }
         System.out.println();
-        System.out.println("----------------------------------------------------------------------------------");
+       
         return new ResourceIterator(agrisResources, this.getParser());
     }
     

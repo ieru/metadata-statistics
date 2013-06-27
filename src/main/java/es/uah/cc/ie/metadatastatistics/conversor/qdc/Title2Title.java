@@ -52,6 +52,10 @@ public class Title2Title {
                 iso_lang = new String();
                 iso_lang = _langISOHelper.getISO_639_1_fromText(lang);
             }
+            else
+            {
+                lang="null";
+            }
             if (iso_lang == null) {
                 //I try to autodetec the language
                 if (_detector != null) {
@@ -62,7 +66,7 @@ public class Title2Title {
             }
 
 
-            qdc.addTitle(iso_lang, value);
+            qdc.addTitle(lang, value);
         }
 
         //1.1-alternative

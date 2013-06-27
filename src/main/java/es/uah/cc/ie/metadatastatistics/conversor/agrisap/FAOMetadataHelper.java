@@ -86,6 +86,7 @@ public class FAOMetadataHelper {
             if (_logger != null) {
                 List<Element> idList = child.getChildren("identifier");
                 if (idList.isEmpty()) {
+                   
                     String message = new String();
                     if (_xmlFile != null) {
                         message = _xmlFile.getName() + " ";

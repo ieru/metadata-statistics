@@ -15,7 +15,7 @@ public class Vap4Agent {
   private static Namespace dcdsNS = Namespace.getNamespace("dcds", "http://purl.org/dc/xmlns/2008/09/01/dc-ds-xml/");
   private static Namespace xmlNS = Namespace.getNamespace("xml", "http://www.w3.org/XML/1998/namespace");
   
-  private String name="", firstName="", lastName="", mbox="", type="";
+  private String name="", firstName="", lastName="", mbox="", type="", organization="";
   
   public Vap4Agent(Element dcdsDescription) {
     this.dcdsDescription = dcdsDescription;
@@ -55,7 +55,12 @@ public class Vap4Agent {
           URI valURI = new URI(valURIstr);
           setType(valURIstr);
           
-        } else {
+        } 
+        if (propName.equals("Organization")) {
+
+          setOrganization(statement.getValue().trim());
+          
+        }else {
           Logger.getLogger(Vap4Agent.class.getName()).log(Level.SEVERE, "Invalid property found in Agent: " + propName);
         }
         
@@ -66,6 +71,12 @@ public class Vap4Agent {
     
   }
 
+ public void setOrganization(String organization) {
+    this.organization = organization;
+  }
+   public String getOrganization() {
+    return organization;
+  }
   public String getName() {
     return name;
   }
@@ -119,7 +130,7 @@ public class Vap4Agent {
   
   @Override
   public String toString() {
-    return "Vap4Agent{" + "name=" + name + ", firstName=" + firstName + ", lastName=" + lastName + ", mbox=" + mbox + ", type=" + type + '}';
+    return "Vap4Agent{" + "name=" + name + ", firstName=" + firstName + ", lastName=" + lastName + ", mbox=" + mbox + ", type=" + type + ", organization=" + organization+ '}';
   }
   
   
