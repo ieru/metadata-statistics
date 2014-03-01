@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<lom xmlns="http://ltsc.ieee.org/xsd/LOMv1p0">
+  <general>
+    <title>
+      <string xml:lang="en">Ecologues</string>
+      <string xml:lang="la">BUCOLICA</string>
+    </title>
+    <language>la</language>
+  </general>
+  <technical>
+    <location type="URI">
+      http://classics.mit.edu/Virgil/eclogue.html
+    </location>
+  </technical>
+</lom>

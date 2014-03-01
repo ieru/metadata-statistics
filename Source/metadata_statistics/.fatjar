@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Oct 13 22:53:53 CEST 2013
+onejar.license.required=false
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=ieru_meta_st.jar
+manifest.mergeall=true
+manifest.mainclass=metadata_statistics.Main
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
