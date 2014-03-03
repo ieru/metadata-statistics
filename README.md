@@ -8,7 +8,7 @@ Execution
 
 To execute the metadata_statistics program ther are a few steps to follow.
 
-java -jar ieru_metadata_statistics "<<XML file or folder>>" "<<Folder Output>>" "(optional)<<Template>>"
+java -jar ieru_metadata_statistics <XML file or folder> <Folder Output> (optional)<Template>
 
 The meaning of each argument are defined and all the steps to follow are in Execution wike page (https://github.com/ieru/metadata-statistics/wiki/Execution)
 
